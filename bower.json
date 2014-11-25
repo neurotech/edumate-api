@@ -1,0 +1,22 @@
+{
+  "name": "edumate-toolbelt",
+  "version": "0.0.1",
+  "authors": [
+    "Tim Douglas <neurotech@gmail.com>"
+  ],
+  "description": "A collection of APIs for securely exposing data from Edumate.",
+  "main": "app.js",
+  "keywords": [
+    "edumate",
+    "api"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
