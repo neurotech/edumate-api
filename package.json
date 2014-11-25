@@ -1,0 +1,18 @@
+{
+  "name": "edumate-toolbelt",
+  "version": "0.0.1",
+  "description": "A collection of APIs for securely exposing data from Edumate.",
+  "main": "app.js",
+  "scripts": {
+    "serve": "forever start --minUptime 1000 --spinSleepTime 3000 app.js",
+    "build": "gulp build",
+    "watch": "gulp watch"
+  },
+  "keywords": [
+    "tools"
+  ],
+  "author": "Tim Douglas",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
