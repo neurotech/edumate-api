@@ -1,4 +1,3 @@
-edumate-toolbelt
-================
+# edumate-toolbelt
 
-A collection of APIs to securely expose data from Edumate.
+A collection of APIs for securely exposing data from Edumate.
