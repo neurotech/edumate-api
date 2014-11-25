@@ -14,3 +14,17 @@ URI               | Description
 /staff            | Returns all current staff.
 /staff/teachers   | Returns all current teaching staff.
 /staff/support    | Returns all current support staff.
+
+---
+
+## To be documented:
+
+### Students
+
+### Parents
+
+### Courses
+
+### Houses
+
+### Status
