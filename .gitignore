@@ -3,3 +3,4 @@ bower_components
 db
 public
 config.js
+.DS_Store
