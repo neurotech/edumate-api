@@ -1,7 +1,7 @@
 var path = require('path');
 var config = {};
 
-config.express = {
+config.http = {
   host: 'http://localhost',
   port: 3333
 };
