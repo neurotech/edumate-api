@@ -1,6 +1,6 @@
 # Edumate Toolbelt
 
-A collection of APIs for securely exposing data from Edumate.
+An API for securely exposing data from Edumate.
 
 ## Resources
 
@@ -14,17 +14,3 @@ URI               | Description
 /staff            | Returns all current staff.
 /staff/teachers   | Returns all current teaching staff.
 /staff/support    | Returns all current support staff.
-
----
-
-## To be documented:
-
-### Students
-
-### Parents
-
-### Courses
-
-### Houses
-
-### Status

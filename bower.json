@@ -4,7 +4,7 @@
   "authors": [
     "Tim Douglas <neurotech@gmail.com>"
   ],
-  "description": "A collection of APIs for securely exposing data from Edumate.",
+  "description": "An API for securely exposing data from Edumate.",
   "main": "app.js",
   "keywords": [
     "edumate",
