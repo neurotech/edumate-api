@@ -1,6 +1,7 @@
 node_modules
+npm-debug.log
 bower_components
-db
-public
 config.js
 .DS_Store
+*.swp
+cache

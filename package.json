@@ -14,8 +14,11 @@
   "author": "Tim Douglas",
   "license": "MIT",
   "dependencies": {
-    "hapi": "^8.2.0",
-    "jdbc": "0.0.12"
+    "acho": "^1.0.4",
+    "camel-case": "^1.1.1",
+    "jdbc": "0.0.13",
+    "lodash": "^3.6.0",
+    "moment": "^2.9.0"
   },
   "devDependencies": {}
 }
