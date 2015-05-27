@@ -12,6 +12,8 @@
   "author": "Tim Douglas",
   "license": "MIT",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "node-edumate": "^2.0.1"
+  },
   "devDependencies": {}
 }
