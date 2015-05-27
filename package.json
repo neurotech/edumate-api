@@ -4,21 +4,14 @@
   "description": "An API for securely exposing data from Edumate.",
   "main": "app.js",
   "scripts": {
-    "serve": "forever start --minUptime 1000 --spinSleepTime 3000 app.js",
-    "build": "gulp build",
-    "watch": "gulp watch"
+    "serve": "forever start --minUptime 1000 --spinSleepTime 3000 app.js"
   },
   "keywords": [
     "tools"
   ],
   "author": "Tim Douglas",
   "license": "MIT",
-  "dependencies": {
-    "acho": "^1.0.4",
-    "camel-case": "^1.1.1",
-    "jdbc": "0.0.13",
-    "lodash": "^3.6.0",
-    "moment": "^2.9.0"
-  },
+  "private": true,
+  "dependencies": {},
   "devDependencies": {}
 }

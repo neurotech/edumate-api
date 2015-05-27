@@ -1,30 +1,17 @@
-var path = require('path');
-var schedule = require('node-schedule');
 var config = {};
 
-config.http = {
-  host: 'localhost',
-  port: 3000
-};
-
-config.edumate = {
-  host: 'HOST',
+config.db2 = {
+  host: 'HOSTNAME',
   port: 'PORT',
-  suffix: '/PATH',
+  suffix: '/SUFFIX',
   username: 'USERNAME',
-  password: 'SECRET'
+  password: 'PASSWORD'
 };
 
 config.init = {
   libpath: './drivers/db2jcc.jar',
   drivername: 'com.ibm.db2.jcc.DB2Driver',
-  url: 'jdbc:' + 'db2://' + config.edumate.host + ':' + config.edumate.port + config.edumate.suffix + ':user=' + config.edumate.username + ';password=' + config.edumate.password + ';'
-};
-
-config.cache = {
-  value: 5,
-  units: 'minutes',
-  path: path.join(__dirname, '/cache/')
+  url: 'jdbc:' + 'db2://' + config.db2.host + ':' + config.db2.port + config.db2.suffix + ':user=' + config.db2.username + ';password=' + config.db2.password + ';'
 };
 
 module.exports = config;
