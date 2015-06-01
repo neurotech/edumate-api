@@ -17,6 +17,9 @@ edumate.query(staffUsers, config.init).then(function(results) {
         result[camelCase(key)] = val;
       })
     );
+    if (i === results.length - 1) {
+      console.log('lowdb updated with ' + results.length + ' records.')
+    }
   };
 }, function(error) {
   console.error(error);
