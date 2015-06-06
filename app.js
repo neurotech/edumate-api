@@ -1,26 +1,50 @@
 'use strict';
 
 var edumate = require('node-edumate');
-var low = require('lowdb');
+var r = require('rethinkdb');
 var _ = require('lodash');
 var camelCase = require('camel-case');
-var db = low('db.json');
 
 var config = require('./config.js');
 var staffUsers = 'SELECT * FROM DB2INST1.view_api_v1_staff_users';
 
-edumate.query(staffUsers, config.init).then(function(results) {
-  db('staff').remove();
-  for (var i = 0; i < results.length; i++) {
-    db('staff').push(
-      _.transform(results[i], function (result, val, key) {
-        result[camelCase(key)] = val;
-      })
-    );
-    if (i === results.length - 1) {
-      console.log('lowdb updated with ' + results.length + ' records.')
+var connection = null;
+r.connect({host: 'localhost', port: 28015, db: 'edumate_toolbelt'}, function(err, conn) {
+  if (err) {
+    throw err;
+  }
+  connection = conn;
+});
+
+var sanitize = function(results) {
+  var output = [];
+  _.each(results, function(object) {
+    var records = {};
+    var keys = Object.keys(object);
+    for (var i = 0; i < keys.length; i++) {
+      records[camelCase(keys[i])] = object[keys[i]];
     }
-  };
+    output.push(records);
+  });
+
+  return output;
+};
+
+var updateTable = function(table, results) {
+  r.table(table)
+    .get(results.id)
+    .update(results)
+    .run(connection, function(err, result) {
+      if (err) throw err;
+      console.log(JSON.stringify(result, null, 2));
+    });
+};
+
+edumate.query(staffUsers, config.init).then(function(results) {
+  var cleaned = sanitize(results);
+  for (var i = 0; i < cleaned.length; i++) {
+    updateTable('staff', cleaned[i]);
+  }
 }, function(error) {
   console.error(error);
 });
