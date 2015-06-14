@@ -9,8 +9,7 @@ CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_STAFF_USERS (
   teacher,
   support,
   start_date,
-  house,
-  last_updated
+  house
 ) AS
 
 WITH current_staff AS (
@@ -34,8 +33,7 @@ SELECT * FROM (
     (CASE WHEN teacher_status.groups_id = 2 THEN 'true' ELSE 'false' END) AS "TEACHER",
     (CASE WHEN support_status.groups_id = 602 THEN 'true' ELSE 'false' END) AS "SUPPORT",
     staff_employment.start_date,
-    (CASE WHEN house.house IS null THEN 'None' ELSE REPLACE(house.house, '&#039;', '''') END) AS "HOUSE",
-    (current timestamp) AS "LAST_UPDATED"
+    (CASE WHEN house.house IS null THEN 'None' ELSE REPLACE(house.house, '&#039;', '''') END) AS "HOUSE"
 
   FROM current_staff
 
