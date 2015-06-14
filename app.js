@@ -1,16 +1,11 @@
 'use strict';
 
-var edumate = require('node-edumate');
-var rethinkdb = require('./lib/rethinkdb');
-var config = require('./config.js');
+var server = require('./lib/hapi');
 
-var staffUsers = 'SELECT * FROM DB2INST1.view_api_v1_staff_users';
+var timetable = require('./lib/timetable');
+var queries = require('./lib/queries');
 
-edumate.query(staffUsers, config.init).then(function(results) {
-  var cleaned = rethinkdb.sanitize(results);
-  for (var i = 0; i < cleaned.length; i++) {
-    rethinkdb.updateTable('staff', cleaned[i]);
-  }
-}, function(error) {
-  console.error(error);
-});
+timetable.updateJob(queries.staff.name, queries.staff.sql, queries.staff.schedule);
+timetable.updateJob(queries.staffAbsent.name, queries.staffAbsent.sql, queries.staffAbsent.schedule);
+
+server.start();
