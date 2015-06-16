@@ -10,3 +10,16 @@
 ### RethinkDB
 
  - Add `timetable.replaceJob` function to timetable.js that replaces the contents of a table no matter what
+
+---
+
+# Done
+
+### node-edumate
+
+ - Update node-edumate to include the sanitize function
+
+### RethinkDB
+
+ - Remove references to sanitize in rethinkdb lib
+ - Rename `var rethinkdb` to `var db`
