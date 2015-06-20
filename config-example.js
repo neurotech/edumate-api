@@ -1,5 +1,10 @@
 var config = {};
 
+config.http = {
+  host: 'localhost',
+  port: 8000
+};
+
 config.db2 = {
   host: 'HOSTNAME',
   port: 'PORT',
