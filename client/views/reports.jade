@@ -1,0 +1,15 @@
+h1 Module Reports
+a(href="/") Home
+br
+a(href="/picnic") Picnic Dashboard
+
+hr
+
+input(v-model="searchText")
+
+div#reports
+  div(v-repeat="module : reports")
+    h3 {{module.reportName}}
+    p {{module.description}}
+
+script(src="js/bundle.js")
