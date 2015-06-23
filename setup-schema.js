@@ -1,7 +1,7 @@
 'use strict';
 
-var queries = require('./lib/queries');
-var rethinkdb = require('./lib/rethinkdb');
+var queries = require('./lib/api/queries');
+var rethinkdb = require('./lib/api/rethinkdb');
 
 var manifest = function createManifest() {
   var output = [];
