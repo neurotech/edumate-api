@@ -5,11 +5,9 @@ a(href="/picnic") Picnic Dashboard
 
 hr
 
-input(v-model="searchText")
-
 div#reports
-  div(v-repeat="module : reports")
-    h3 {{module.reportName}}
-    p {{module.description}}
+  div(v-repeat="reports")
+    h3 {{reportName}}
+    p {{description}}
 
 script(src="js/bundle.js")

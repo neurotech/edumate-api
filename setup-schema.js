@@ -10,7 +10,7 @@ var manifest = function createManifest() {
       var value = queries[key];
       output.push(value.name);
     }
-  };
+  }
   return output;
 };
 

@@ -1,6 +1,6 @@
 var Vue = require('vue');
 
-var apiUrl = '/api/reports/all'
+var apiUrl = '/api/reports/all';
 
 new Vue({
     el: '#reports',
@@ -13,12 +13,12 @@ new Vue({
     methods: {
       fetchData: function () {
         var xhr = new XMLHttpRequest(),
-        self = this
-        xhr.open('GET', apiUrl)
+        self = this;
+        xhr.open('GET', apiUrl);
         xhr.onload = function () {
           self.reports = JSON.parse(xhr.responseText);
-        }
-        xhr.send()
+        };
+        xhr.send();
       }
     }
 });
