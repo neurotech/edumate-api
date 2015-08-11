@@ -1,10 +1,10 @@
 {
   "name": "edumate-toolbelt",
   "version": "0.0.1",
-  "description": "An API for securely exposing data from Edumate.",
+  "description": "A collection of endpoints that serve various Edumate datasets.",
   "main": "app.js",
   "scripts": {
-    "setup-db": "node setup-schema.js && node setup-records.js",
+    "setup-db": "node setup.js",
     "serve": "forever start --minUptime 1000 --spinSleepTime 3000 app.js"
   },
   "keywords": [
@@ -14,14 +14,15 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "async": "^1.4.0",
+    "chalk": "^1.1.0",
     "hapi": "^8.6.1",
-    "jade": "^1.11.0",
     "joi": "^6.4.3",
     "moment": "^2.10.3",
-    "node-edumate": "^2.0.1",
+    "node-edumate": "^3.0.0",
     "node-schedule": "^0.2.8",
-    "rethinkdbdash": "^2.0.11",
-    "vue": "^0.12.1"
+    "rethinkdb-init": "0.0.4",
+    "rethinkdbdash": "^2.0.11"
   },
   "devDependencies": {}
 }

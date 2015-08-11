@@ -1,14 +1,6 @@
 # Edumate Toolbelt
 
-An API for securely exposing data from Edumate.
-
-## Front End
-
-URI       | Description
-----------|-----------------------------
-/         | Home page
-/reports  | Filterable list of module reports
-/picnic   | Day-to-day dashboard
+A collection of endpoints that serve various Edumate datasets.
 
 ---
 

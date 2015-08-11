@@ -1,9 +1,6 @@
 node_modules
 public
 npm-debug.log
-bower_components
-config.js
 .DS_Store
 *.swp
-cache
-db.json
+*.graffle
