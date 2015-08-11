@@ -38,6 +38,7 @@ async.series([
   function skeleton (callback) {
     r.init({
         host: 'localhost',
+        port: 28015,
         db: 'edumate_toolbelt'
       }, manifest(queries))
       .then(function (conn) {
