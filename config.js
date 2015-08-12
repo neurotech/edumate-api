@@ -25,4 +25,7 @@ config.init = {
   url: 'jdbc:' + 'db2://' + config.edumate.host + ':' + config.edumate.port + config.edumate.suffix + ':user=' + config.edumate.username + ';password=' + config.edumate.password + ';'
 };
 
+/* JWT Secret */
+config.secret = process.env.EDUMATE_TOOLBELT_SECRET;
+
 module.exports = config;
