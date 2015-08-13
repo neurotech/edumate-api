@@ -17,11 +17,11 @@ var config = require('./config');
 }());
 
 // Iterate over `./lib/api/queries` and pass each one to ``./lib/api/timetable`
-for (var key in queries) {
-  if (queries.hasOwnProperty(key)) {
-    timetable.replaceJob(queries[key].dataset, queries[key].sql, queries[key].schedule);
-    console.log(chalk.red('Scheduled job: ') + queries[key].dataset);
-  }
-}
+// for (var key in queries) {
+//   if (queries.hasOwnProperty(key)) {
+//     timetable.replaceJob(queries[key].dataset, queries[key].sql, queries[key].schedule);
+//     console.log(chalk.red('Scheduled job: ') + queries[key].dataset);
+//   }
+// }
 
 server.start();
