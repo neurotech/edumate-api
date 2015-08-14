@@ -3,6 +3,7 @@
 CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_STAFF_USERS_ABSENT (
   sort_key,
   id,
+  staff_id,
   away_reason,
   date_from,
   time_from,
@@ -12,7 +13,8 @@ CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_STAFF_USERS_ABSENT (
 
 SELECT
   (ROW_NUMBER() OVER (ORDER BY DATE(from_date) DESC, TIME(from_date) DESC, REPLACE(away_reason.away_reason, '&#039;', ''''), UPPER(contact.surname), contact.preferred_name, contact.firstname) + 99) AS "SORT_KEY",
-  staff.staff_number AS ID,
+  staff_away.staff_away_id AS ID,
+  staff.staff_number AS STAFF_ID,
   REPLACE(away_reason.away_reason, '&#039;', '''') AS AWAY_REASON,
   DATE(from_date) AS "DATE_FROM",
   TIME(from_date) AS "TIME_FROM",
