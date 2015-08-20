@@ -11,7 +11,7 @@ CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_PERIODS (
 
 WITH periods AS (
   SELECT
-    period.period,
+    (CASE WHEN period.period = 'CoCurricular' THEN 'Co-Curricular' ELSE period.period END) AS "PERIOD",
     period.short_name,
     period_type.period_type,
     period.start_time,
