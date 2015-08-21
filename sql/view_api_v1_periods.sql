@@ -1,6 +1,7 @@
 CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_PERIODS (
   ID,
   CURRENT,
+  WEEK,
   PERIOD,
   SHORT_NAME,
   PERIOD_TYPE,
@@ -11,10 +12,14 @@ CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_PERIODS (
 
 WITH periods AS (
   SELECT
-    (CASE WHEN period.period = 'CoCurricular' THEN 'Co-Curricular' ELSE period.period END) AS "PERIOD",
-    period.short_name,
+    (CASE
+      WHEN period.period = 'CoCurricular' THEN 'Co-Curricular'
+      WHEN period.period = 'Period 7' THEN 'After School'
+      ELSE period.period
+    END) AS "PERIOD",
+    (CASE WHEN period.short_name = '7' THEN 'AS' ELSE period.short_name END) AS "SHORT_NAME",
     period_type.period_type,
-    period.start_time,
+    (period.start_time - 1 MINUTE) AS "START_TIME",
     period.end_time,
     am_pm.am_pm
   
@@ -58,11 +63,30 @@ dusk AS (
     'School Closed' AS "PERIOD",
     'SC' AS "SHORT_NAME",
     'Closed' AS "PERIOD_TYPE",
-    ((SELECT end_of_day FROM gates) + 1 MINUTE) AS "START_TIME",
+    ((SELECT end_of_day FROM gates)) AS "START_TIME",
     TIME('23:59:00') AS "END_TIME",
     'Evening' AS "AM_PM"
 
   FROM SYSIBM.SYSDUMMY1
+),
+
+current_week AS (
+  SELECT
+    (SELECT (int(days(current date) / 7) - int(days(term.start_date) / 7)) +1 FROM sysibm.sysdummy1) AS "WEEK",
+    (CASE
+      WHEN gtcdd.day_index BETWEEN 1 and 5 THEN 'A'
+      WHEN gtcdd.day_index BETWEEN 6 and 10 THEN 'B'
+    ELSE '' END) AS "AB"
+
+  FROM TABLE(EDUMATE.get_timetable_cycle_day_date((current date), (current date))) gtcdd
+
+  INNER JOIN timetable ON timetable.timetable_id = gtcdd.timetable_id
+  INNER JOIN term ON term.timetable_id = gtcdd.timetable_id
+
+  WHERE
+    timetable.default_flag = 1
+    AND
+    (current date) BETWEEN term.start_date AND term.end_date
 ),
 
 combined AS (
@@ -77,6 +101,7 @@ SELECT * FROM (
   SELECT
     ROW_NUMBER() OVER () AS "ID",
     (CASE WHEN (current time) BETWEEN start_time AND end_time THEN 1 ELSE 0 END) AS "CURRENT",
+    (SELECT week || ab FROM current_week) AS "WEEK",
     period,
     short_name,
     period_type,
