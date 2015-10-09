@@ -1,6 +1,6 @@
 'use strict';
 
-var r = require('rethinkdbdash')();
+var r = require('./lib/db');
 require('rethinkdb-init')(r);
 
 var edumate = require('node-edumate');
