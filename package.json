@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "setup-db": "node setup.js",
-    "serve": "forever start --minUptime 1000 --spinSleepTime 3000 app.js"
+    "production": "pm2 start app.js -i 0 --max-memory-restart 400M --name 'edumate-toolbelt'"
   },
   "keywords": [
     "tools"
@@ -14,17 +14,17 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "async": "^1.4.0",
-    "chalk": "^1.1.0",
-    "hapi": "^8.6.1",
-    "hapi-auth-jwt2": "^5.0.0",
-    "joi": "^6.4.3",
-    "jsonwebtoken": "^5.0.4",
-    "moment": "^2.10.3",
-    "node-edumate": "^3.0.0",
-    "node-schedule": "^0.2.8",
-    "rethinkdb-init": "0.0.4",
-    "rethinkdbdash": "^2.0.20"
+    "async": "1.4.2",
+    "chalk": "1.1.1",
+    "hapi": "10.4.0",
+    "hapi-auth-jwt2": "5.0.7",
+    "joi": "6.9.0",
+    "jsonwebtoken": "5.4.0",
+    "moment": "2.10.6",
+    "node-edumate": "4.0.0",
+    "node-schedule": "0.2.9",
+    "rethinkdb-init": "0.0.5",
+    "rethinkdbdash": "2.1.9"
   },
   "devDependencies": {}
 }
