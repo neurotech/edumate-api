@@ -86,7 +86,7 @@ async.series([
   function records (callback) {
     Object.keys(queries).map(function (key) {
       var value = queries[key];
-      edumate.query(config.init, value.sql, {clean: true})
+      edumate.query(config.edumate, value.sql, {clean: true})
         .then(function (results) {
           r.db('edumate_toolbelt')
             .table(value.dataset)

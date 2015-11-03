@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "setup-db": "node setup.js",
-    "production": "pm2 start app.js -i 0 --max-memory-restart 400M --name 'edumate-toolbelt'"
+    "production": "pm2 start app.js -i 0 --max-memory-restart 400M --name 'edumate-toolbelt'",
+    "start": "node app.js"
   },
   "keywords": [
     "tools"
