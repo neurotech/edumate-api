@@ -1,18 +1,17 @@
 'use strict';
+const chalk = require('chalk');
+const moment = require('moment');
 
-var chalk = require('chalk');
-var moment = require('moment');
+const server = require('./lib/hapi');
+const timetable = require('./lib/api/timetable');
+const queries = require('./lib/api/queries');
+const config = require('./config');
 
-var server = require('./lib/hapi');
-var timetable = require('./lib/api/timetable');
-var queries = require('./lib/api/queries');
-var config = require('./config');
-
-server.start(function() {
+server.start(function () {
   var today = chalk.magenta(moment().format('DD/MM/YY'));
   var now = chalk.yellow(moment().format('HH:mm:ss'));
-  
-  console.log('Starting ' + chalk.green('edumate-toolbelt') + ' on ' + today + ' at ' + now);
+
+  console.log('Starting ' + chalk.green('edumate-api') + ' on ' + today + ' at ' + now);
   console.log(chalk.cyan('API: ') + chalk.underline('http://' + config.http.host + ':' + config.http.port));
   console.log(chalk.blue('Edumate: ') + process.env.EDUMATE_USERNAME + '@' + process.env.EDUMATE_HOST + ':' + process.env.EDUMATE_PORT + '/' + process.env.EDUMATE_PATH);
 
