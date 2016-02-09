@@ -22,7 +22,7 @@
     "joi": "6.9.0",
     "jsonwebtoken": "5.4.0",
     "moment": "2.10.6",
-    "node-edumate": "4.0.0",
+    "node-edumate": "5.0.0",
     "node-schedule": "0.2.9",
     "rethinkdb-init": "0.0.5",
     "rethinkdbdash": "2.1.9"
