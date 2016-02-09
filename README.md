@@ -16,7 +16,7 @@ URI                   | Description
 /api/staff/:id        | Returns the specified staff member.
 /api/staff/teachers   | Returns all current teaching staff.
 /api/staff/support    | Returns all current support staff.
-/api/staff/absent     | Retunrs all staff who are away for the current date
+/api/staff/absent     | Returns all staff who are away for the current date
 
 ### Reports
 
