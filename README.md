@@ -1,6 +1,6 @@
-# Edumate Toolbelt
+# Edumate API
 
-A collection of endpoints that serve various Edumate datasets.
+A collection of endpoints that serve various datasets from Edumate.
 
 ---
 
