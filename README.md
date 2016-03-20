@@ -2,6 +2,20 @@
 
 A collection of endpoints that serve various datasets from Edumate.
 
+## Configuration
+
+`edumate-api` requires the following environment variables to be set to function correctly:
+
+Variable              | Default
+----------------------|--------
+EDUMATE_API_HTTP_HOST | `localhost`
+EDUMATE_API_HTTP_PORT | `8000`
+EDUMATE_HOST          |
+EDUMATE_PORT          |
+EDUMATE_PATH          |
+EDUMATE_USERNAME      |
+EDUMATE_PASSWORD      |
+
 ---
 
 ## Resources

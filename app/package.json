@@ -1,0 +1,24 @@
+{
+  "name": "edumate-api",
+  "version": "0.0.1",
+  "description": "A collection of endpoints that serve various datasets from Edumate.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "tools"
+  ],
+  "author": "Tim Douglas",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "hapi": "13.2.1",
+    "joi": "8.0.5",
+    "moment": "2.12.0",
+    "node-edumate": "5.0.0",
+    "node-schedule": "1.1.0",
+    "pg": "4.5.1"
+  },
+  "devDependencies": {}
+}

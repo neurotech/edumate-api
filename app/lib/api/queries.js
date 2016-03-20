@@ -1,10 +1,10 @@
 'use strict';
 
-var schedule = require('node-schedule');
+const schedule = require('node-schedule');
 var queries = {};
 
-var businessDays = [new schedule.Range(1, 5)];
-var businessHours = [new schedule.Range(7, 18)];
+const businessDays = [new schedule.Range(1, 5)];
+const businessHours = [new schedule.Range(7, 18)];
 
 queries.staff = {
   dataset: 'staff',

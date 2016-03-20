@@ -1,12 +1,11 @@
 'use strict';
 
-var path = require('path');
 var config = {};
 
 /* hapi HTTP config */
 config.http = {
-  host: process.env.EDUMATE_TOOLBELT_HOST || 'localhost',
-  port: process.env.EDUMATE_TOOLBELT_PORT || 8000
+  host: process.env.EDUMATE_API_HTTP_HOST || 'localhost',
+  port: process.env.EDUMATE_API_HTTP_PORT || 8000
 };
 
 /* Edumate Credentials */
@@ -18,7 +17,10 @@ config.edumate = {
   password: process.env.EDUMATE_PASSWORD
 };
 
-/* JWT Secret */
-config.secret = process.env.EDUMATE_TOOLBELT_SECRET;
+/* Postgres DB Credentials */
+config.db = {
+  host: process.env.POSTGRES_HOST,
+  password: process.env.POSTGRES_PASSWORD
+};
 
 module.exports = config;
