@@ -4,7 +4,7 @@ var r = require('../db');
 var storage = {};
 
 storage.query = function (table, key) {
-  r.db('edumate_toolbelt')
+  r.db('edumate_api')
     .table(table)
     .get(key)
     .then(function (result) {
@@ -13,7 +13,7 @@ storage.query = function (table, key) {
 };
 
 storage.insertTable = function (table, results) {
-  r.db('edumate_toolbelt')
+  r.db('edumate_api')
     .table(table)
     .insert(results)
     .then(function (result) {
@@ -22,7 +22,7 @@ storage.insertTable = function (table, results) {
 };
 
 storage.updateTable = function (table, results) {
-  r.db('edumate_toolbelt')
+  r.db('edumate_api')
     .table(table)
     .get(results.id)
     .update(results)
@@ -32,11 +32,11 @@ storage.updateTable = function (table, results) {
 };
 
 storage.replaceTable = function (table, results) {
-  r.db('edumate_toolbelt')
+  r.db('edumate_api')
     .table(table)
     .delete()
     .then(function (result) {
-      r.db('edumate_toolbelt')
+      r.db('edumate_api')
         .table(table)
         .insert(results)
         .then(function (result) {
