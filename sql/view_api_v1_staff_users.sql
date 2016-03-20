@@ -9,7 +9,8 @@ CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_STAFF_USERS (
   teacher,
   support,
   start_date,
-  house
+  house,
+  location
 ) AS
 
 WITH current_staff AS (
@@ -33,7 +34,8 @@ SELECT * FROM (
     (CASE WHEN teacher_status.groups_id = 2 THEN 'true' ELSE 'false' END) AS "TEACHER",
     (CASE WHEN support_status.groups_id = 602 THEN 'true' ELSE 'false' END) AS "SUPPORT",
     staff_employment.start_date,
-    (CASE WHEN house.house IS null THEN 'None' ELSE REPLACE(house.house, '&#039;', '''') END) AS "HOUSE"
+    (CASE WHEN house.house IS null THEN 'None' ELSE REPLACE(house.house, '&#039;', '''') END) AS "HOUSE",
+    current_location.location
 
   FROM current_staff
 
@@ -53,6 +55,8 @@ SELECT * FROM (
   LEFT JOIN group_membership support_status ON support_status.contact_id = current_staff.contact_id
     AND support_status.groups_id = 602
     AND (support_status.effective_end IS NULL OR support_status.effective_end > (current date))
+
+  INNER JOIN TABLE(EDUMATE.GET_STAFF_LOCATION(staff.staff_id, (current date))) current_location ON current_location.staff_id = staff.staff_id
 
   ORDER BY UPPER(contact.surname), contact.preferred_name, contact.firstname
 )
