@@ -1,8 +1,10 @@
 CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_AUDITS_CLASS_TYPE (
-  CLASS_ID,
   CLASS,
   ACTUAL,
-  EXPECTED
+  EXPECTED,
+  CLASS_ID,
+  EXPECTED_ID,
+  FIX
 ) AS
 
 WITH home_rooms AS (
@@ -11,13 +13,15 @@ WITH home_rooms AS (
     class_id,
     class,
     class_type.class_type AS "ACTUAL",
-    (SELECT class_type FROM class_type WHERE class_type_id = 2) AS "EXPECTED"
-  
+    class_type.class_type_id AS "ACTUAL_ID",
+    (SELECT class_type FROM class_type WHERE class_type_id = 2) AS "EXPECTED",
+    (SELECT class_type_id FROM class_type WHERE class_type_id = 2) AS "EXPECTED_ID"
+
   FROM class
-  
+
   INNER JOIN class_type ON class_type.class_type_id = class.class_type_id
   INNER JOIN course ON course.course_id = class.course_id
-  
+
   WHERE
     academic_year_id = (SELECT academic_year_id FROM academic_year WHERE academic_year = YEAR(current date))
     AND
@@ -32,13 +36,15 @@ cc AS (
     class_id,
     class,
     class_type.class_type AS "ACTUAL",
-    (SELECT class_type FROM class_type WHERE class_type_id = 4) AS "EXPECTED"
-  
+    class_type.class_type_id AS "ACTUAL_ID",
+    (SELECT class_type FROM class_type WHERE class_type_id = 4) AS "EXPECTED",
+    (SELECT class_type_id FROM class_type WHERE class_type_id = 4) AS "EXPECTED_ID"
+
   FROM class
-  
+
   INNER JOIN class_type ON class_type.class_type_id = class.class_type_id
   INNER JOIN course ON course.course_id = class.course_id
-  
+
   WHERE
     academic_year_id = (SELECT academic_year_id FROM academic_year WHERE academic_year = YEAR(current date))
     AND
@@ -49,19 +55,50 @@ cc AS (
     course.code LIKE 'CR%')
 ),
 
-lifeskills AS (
+vet AS (
   SELECT
     '3' AS "SORT_ORDER",
     class_id,
     class,
     class_type.class_type AS "ACTUAL",
-    (SELECT class_type FROM class_type WHERE class_type_id = 10) AS "EXPECTED"
-  
+    class_type.class_type_id AS "ACTUAL_ID",
+    (SELECT class_type FROM class_type WHERE class_type_id = 9) AS "EXPECTED",
+    (SELECT class_type_id FROM class_type WHERE class_type_id = 9) AS "EXPECTED_ID"
+
+    FROM class
+
+    INNER JOIN class_type ON class_type.class_type_id = class.class_type_id
+    INNER JOIN course ON course.course_id = class.course_id
+
+    WHERE
+      academic_year_id = (SELECT academic_year_id FROM academic_year WHERE academic_year = YEAR(current date))
+      AND
+      class.class_type_id = 1
+      AND
+      (LOWER(class.class) LIKE '%ports coaching%'
+      OR
+      LOWER(class.class) LIKE '%ospitality%'
+      OR
+      LOWER(class.class) LIKE '%usiness service%'
+      OR
+      LOWER(class.class) LIKE '%nformation and digita%')
+),
+
+lifeskills AS (
+  SELECT
+    '4' AS "SORT_ORDER",
+    class_id,
+    class,
+    class_type.class_type AS "ACTUAL",
+    class_type.class_type_id AS "ACTUAL_ID",
+    (SELECT class_type FROM class_type WHERE class_type_id = 10) AS "EXPECTED",
+    (SELECT class_type_id FROM class_type WHERE class_type_id = 10) AS "EXPECTED_ID"
+
   FROM class
-  
+
   INNER JOIN class_type ON class_type.class_type_id = class.class_type_id
   INNER JOIN course ON course.course_id = class.course_id
-  
+
   WHERE
     academic_year_id = (SELECT academic_year_id FROM academic_year WHERE academic_year = YEAR(current date))
     AND
@@ -73,12 +110,15 @@ lifeskills AS (
 combined AS (
   SELECT * FROM lifeskills
   UNION
+  SELECT * FROM vet
+  UNION
   SELECT * FROM cc
   UNION
   SELECT * FROM home_rooms
 )
 
 SELECT * FROM (
-  SELECT class_id, class, actual, expected FROM combined
+  SELECT class, actual, expected, class_id, expected_id, ('UPDATE class SET class_type_id = ' || expected_id || ' WHERE class_id = ' || class_id || ';') AS "FIX"
+  FROM combined
   ORDER BY sort_order, class
 )
