@@ -19,7 +19,8 @@ config.edumate = {
 /* RethinkDB Credentials */
 config.db = {
   host: process.env.RETHINKDB_HOST,
-  port: process.env.RETHINKDB_PORT
+  port: process.env.RETHINKDB_PORT,
+  name: 'edumate_api'
 };
 
 module.exports = config;

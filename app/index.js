@@ -9,21 +9,19 @@ const timetable = require('./lib/api/timetable');
 server.start(function () {
   var today = moment().format('DD/MM/YY');
   var now = moment().format('HH:mm:ss');
-  var api = `http://${config.http.host}:${config.http.port}`;
   var edumateString = `${config.edumate.username}@${config.edumate.host}:${config.edumate.port}/${config.edumate.suffix}`;
 
   // Log a basic startup message
   console.log(`
     Starting edumate-api on ${today} at ${now}
-    API Host: ${api}
     Edumate Connection String: ${edumateString}
   `);
 
   // Iterate over `./lib/api/queries` and pass each one to `./lib/api/timetable`
-  // for (var key in queries) {
-  //   if (queries.hasOwnProperty(key)) {
-  //     timetable.replaceJob(queries[key].dataset, queries[key].sql, queries[key].schedule);
-  //     console.log(`${chalk.red('Scheduled job: ')} ${queries[key].dataset}`);
-  //   }
-  // }
+  for (var key in queries) {
+    if (queries.hasOwnProperty(key)) {
+      timetable.replaceJob(queries[key].dataset, queries[key].sql, queries[key].schedule);
+      console.log(`Scheduled job: ${queries[key].dataset}`);
+    }
+  }
 });

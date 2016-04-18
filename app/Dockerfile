@@ -21,4 +21,4 @@ EXPOSE 8000
 
 # Run the application
 USER nobody
-CMD [ "node", "setup.js" ]
+CMD [ "sh", "entrypoint.sh" ]

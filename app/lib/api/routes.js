@@ -1,15 +1,16 @@
-var Joi = require('joi');
-var moment = require('moment');
-var r = require('../db');
+const Joi = require('joi');
+const moment = require('moment');
+const r = require('../db');
+const config = require('../../config');
 
 var routes = [
   {
     method: 'GET',
     path: '/api/staff',
-    handler: function (request, reply) {
-      r.db('edumate_api')
+    handler: (request, reply) => {
+      r.db(config.db.name)
         .table('staff')
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     }
@@ -17,11 +18,11 @@ var routes = [
   {
     method: 'GET',
     path: '/api/staff/{id}',
-    handler: function (request, reply) {
-      r.db('edumate_api')
+    handler: (request, reply) => {
+      r.db(config.db.name)
         .table('staff')
-        .get(encodeURIComponent(request.params.id))
-        .then(function (result) {
+        .filter({staffId: encodeURIComponent(request.params.id)})
+        .then((result) => {
           reply(result);
         });
     }
@@ -29,12 +30,12 @@ var routes = [
   {
     method: 'GET',
     path: '/api/staff/teachers',
-    handler: function (request, reply) {
-      r.db('edumate_api')
+    handler: (request, reply) => {
+      r.db(config.db.name)
         .table('staff')
         .filter({ teacher: 'true' })
         .orderBy('surname', 'firstname')
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     }
@@ -42,12 +43,12 @@ var routes = [
   {
     method: 'GET',
     path: '/api/staff/support',
-    handler: function (request, reply) {
-      r.db('edumate_api')
+    handler: (request, reply) => {
+      r.db(config.db.name)
         .table('staff')
         .filter({ support: 'true' })
         .orderBy('surname', 'firstname')
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     }
@@ -55,18 +56,18 @@ var routes = [
   {
     method: 'GET',
     path: '/api/staff/absent/now',
-    handler: function (request, reply) {
+    handler: (request, reply) => {
       var now = moment().format('HH:mm:ss');
-      r.db('edumate_api')
+      r.db(config.db.name)
         .table('staff_absent')
-        .eqJoin('staffId', r.db('edumate_api').table('staff'))
+        .eqJoin('staffId', r.db(config.db.name).table('staff'))
         .zip()
         .filter(
           r.row('allDayFlag').eq(0)
           .and(r.row('timeFrom').lt(now))
           .and(r.row('timeTo').gt(now))
         )
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     }
@@ -74,17 +75,17 @@ var routes = [
   {
     method: 'GET',
     path: '/api/staff/absent/soon',
-    handler: function (request, reply) {
+    handler: (request, reply) => {
       var now = moment().format('HH:mm:ss');
-      r.db('edumate_api')
+      r.db(config.db.name)
         .table('staff_absent')
-        .eqJoin('staffId', r.db('edumate_api').table('staff'))
+        .eqJoin('staffId', r.db(config.db.name).table('staff'))
         .zip()
         .filter(
           r.row('allDayFlag').eq(0)
           .and(r.row('timeFrom').gt(now))
         )
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     }
@@ -92,13 +93,13 @@ var routes = [
   {
     method: 'GET',
     path: '/api/staff/absent/allday',
-    handler: function (request, reply) {
-      r.db('edumate_api')
+    handler: (request, reply) => {
+      r.db(config.db.name)
         .table('staff_absent')
-        .eqJoin('staffId', r.db('edumate_api').table('staff'))
+        .eqJoin('staffId', r.db(config.db.name).table('staff'))
         .zip()
         .filter(r.row('allDayFlag').eq(1))
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     }
@@ -106,13 +107,13 @@ var routes = [
   {
     method: 'GET',
     path: '/api/staff/absent/today',
-    handler: function (request, reply) {
-      r.db('edumate_api')
+    handler: (request, reply) => {
+      r.db(config.db.name)
         .table('staff_absent')
-        .eqJoin('staffId', r.db('edumate_api').table('staff'))
+        .eqJoin('staffId', r.db(config.db.name).table('staff'))
         .zip()
         .orderBy('sortKey')
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     }
@@ -120,10 +121,10 @@ var routes = [
   {
     method: 'GET',
     path: '/api/reports/all',
-    handler: function (request, reply) {
-      r.db('edumate_api')
+    handler: (request, reply) => {
+      r.db(config.db.name)
         .table('module_reports')
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     }
@@ -131,15 +132,15 @@ var routes = [
   {
     method: 'GET',
     path: '/api/reports/module/{module}',
-    handler: function (request, reply) {
+    handler: (request, reply) => {
       var module = request.params.module ? { module: encodeURIComponent(request.params.module) } : '';
-      r.db('edumate_api')
+      r.db(config.db.name)
         .table('module_reports')
         .orderBy('module', 'kind', 'heading', 'reportName')
         .filter(module)
         .skip(request.query.offset)
         .limit(request.query.limit)
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     },
@@ -155,11 +156,11 @@ var routes = [
   {
     method: 'GET',
     path: '/api/periods',
-    handler: function (request, reply) {
-      r.db('edumate_api')
+    handler: (request, reply) => {
+      r.db(config.db.name)
         .table('periods')
         .orderBy('startTime')
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     }
@@ -167,15 +168,15 @@ var routes = [
   {
     method: 'GET',
     path: '/api/periods/current',
-    handler: function (request, reply) {
+    handler: (request, reply) => {
       var now = moment().format('HH:mm:ss');
-      r.db('edumate_api')
+      r.db(config.db.name)
         .table('periods')
         .filter(
           r.row('startTime').lt(now)
           .and(r.row('endTime').gt(now))
         )
-        .then(function (result) {
+        .then((result) => {
           reply(result);
         });
     }

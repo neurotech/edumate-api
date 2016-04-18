@@ -1,48 +1,46 @@
 'use strict';
 
-var r = require('../db');
+const r = require('../db');
 var storage = {};
 
-storage.query = function (table, key) {
+storage.query = (table, key) => {
   r.db('edumate_api')
     .table(table)
     .get(key)
-    .then(function (result) {
+    .then((result) => {
       console.log(result);
     });
 };
 
-storage.insertTable = function (table, results) {
+storage.insertTable = (table, results) => {
   r.db('edumate_api')
     .table(table)
     .insert(results)
-    .then(function (result) {
+    .then((result) => {
       console.log(result);
     });
 };
 
-storage.updateTable = function (table, results) {
-  r.db('edumate_api')
-    .table(table)
-    .get(results.id)
-    .update(results)
-    .then(function (result) {
-      console.log(result);
-    });
-};
-
-storage.replaceTable = function (table, results) {
+storage.replaceTable = (table, results) => {
   r.db('edumate_api')
     .table(table)
     .delete()
-    .then(function (result) {
+    .then((result) => {
       r.db('edumate_api')
         .table(table)
         .insert(results)
-        .then(function (result) {
-          console.log(result);
+        .then((result) => {
+          console.log(results.length + ' records inserted into table: ' + table);
         });
     });
+    // .then((result) => {
+    //   r.db('edumate_api')
+    //     .table(table)
+    //     .insert(results)
+    //     .then((result) => {
+    //       console.log(result);
+    //     });
+    // });
 };
 
 module.exports = storage;

@@ -36,9 +36,9 @@ WITH current_aways AS (
 )
 
 SELECT
-  (ROW_NUMBER() OVER (ORDER BY date_from DESC, all_day_flag, time_from ASC, away_reason, UPPER(surname), preferred_name, firstname) + 99) AS "SORT_KEY",
+  INTEGER((ROW_NUMBER() OVER (ORDER BY date_from DESC, all_day_flag, time_from ASC, away_reason, UPPER(surname), preferred_name, firstname) + 99)) AS SORT_KEY,
   id,
-  staff_id,
+  INTEGER(staff_id) AS STAFF_ID,
   away_reason,
   date_from,
   time_from,

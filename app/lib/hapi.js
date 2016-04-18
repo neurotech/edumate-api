@@ -1,8 +1,8 @@
 'use strict';
 
-var hapi = require('hapi');
-var config = require('../config');
-var apiRoutes = require('./api/routes');
+const hapi = require('hapi');
+const config = require('../config');
+const apiRoutes = require('./api/routes');
 
 var server = new hapi.Server();
 
@@ -15,7 +15,7 @@ server.connection({
 server.route({
   method: 'GET',
   path: '/',
-  handler: function (request, reply) {
+  handler: (request, reply) => {
     var nope = { response: 'nope' };
     reply(nope);
   }
