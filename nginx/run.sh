@@ -8,6 +8,6 @@ docker run -d \
   --log-opt max-size=50m \
   --log-opt max-file=4 \
   --restart=on-failure:5 \
-  --memory "384M" \
+  --memory "128M" \
   --name edumate-api-nginx \
   edumate-api-nginx
