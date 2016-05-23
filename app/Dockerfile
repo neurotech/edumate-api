@@ -1,4 +1,4 @@
-FROM nodesource/jessie:4.3.2
+FROM nodesource/jessie:5.11.0
 MAINTAINER Tim Douglas <neurotech@gmail.com>
 
 # Set timezone
