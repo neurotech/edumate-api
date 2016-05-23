@@ -14,13 +14,15 @@
   "private": true,
   "dependencies": {
     "async": "2.0.0-rc.1",
-    "hapi": "13.2.1",
+    "hapi": "13.4.0",
+    "hapi-auth-jwt2": "7.0.0",
     "joi": "8.0.5",
     "moment": "2.12.0",
     "node-edumate": "5.0.0",
     "node-schedule": "1.1.0",
-    "rethinkdb-init": "0.1.1",
-    "rethinkdbdash": "2.2.18"
+    "rethinkdbdash": "2.3.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "semistandard": "8.0.0"
+  }
 }
