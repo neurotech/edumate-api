@@ -97,6 +97,20 @@ series([
     };
   },
   (callback) => {
+    console.log('Setting up auth db.');
+    r.db(dbName).tableCreate('auth', {primaryKey: 'id'})
+      .then((result) => {
+        console.log(`Created auth table.`);
+        r.db(dbName)
+          .table('auth')
+          .insert(config.auth.admin)
+          .then((result) => {
+            console.log(`Setup default admin user in auth table.`);
+            callback();
+          });
+      });
+  },
+  (callback) => {
     console.log('Setup complete!');
     callback();
     process.exit();
