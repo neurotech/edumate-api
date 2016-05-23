@@ -1,8 +1,6 @@
 #!/bin/bash
 
-RETHINKDB_VERSION="2.3.2"
-
-echo "Starting rethinkdb:$RETHINKDB_VERSION as edumate-api-db"
+echo "Starting RethinkDB image as edumate-api-db"
 docker run \
   --net=edumate-api \
   --name edumate-api-db \
@@ -10,5 +8,5 @@ docker run \
   --log-opt max-size=50m \
   --log-opt max-file=4 \
   --restart=on-failure:5 \
-  --memory "512M" \
-  -d rethinkdb:$RETHINKDB_VERSION
+  --memory "768M" \
+  -d edumate-api-db
