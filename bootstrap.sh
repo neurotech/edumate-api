@@ -62,10 +62,6 @@ if [ -z "$RETHINKDB_HOST" ] || [ -z "$RETHINKDB_PORT" ] || [ -z "$EDUMATE_API_HT
     echo "RETHINKDB_PORT is not set! Please set it and re-run this script."
   fi
 
-  if [ -z "$POSTGRES_PASSWORD" ]; then
-    echo "POSTGRES_PASSWORD is not set! Please set it and re-run this script."
-  fi
-
   if [ -z "$EDUMATE_API_HTTP_PORT" ]; then
     echo "EDUMATE_API_HTTP_PORT is not set! Please set it and re-run this script."
   fi
