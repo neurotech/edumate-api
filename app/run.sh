@@ -12,6 +12,7 @@ docker run \
   -e EDUMATE_PASSWORD=$EDUMATE_PASSWORD \
   -e RETHINKDB_HOST=$RETHINKDB_HOST \
   -e RETHINKDB_PORT=$RETHINKDB_PORT \
+  -e EDUMATE_API_JWT_SECRET=$EDUMATE_API_JWT_SECRET \
   --name edumate-api \
   --log-driver=json-file \
   --log-opt max-size=50m \
