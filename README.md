@@ -6,14 +6,17 @@ A collection of endpoints that serve various datasets from Edumate.
 
 `edumate-api` requires the following environment variables to be set to function correctly:
 
-Variable              | Default
-----------------------|--------
-EDUMATE_API_HTTP_PORT | `8000`
-EDUMATE_HOST          |
-EDUMATE_PORT          |
-EDUMATE_PATH          |
-EDUMATE_USERNAME      |
-EDUMATE_PASSWORD      |
+Variable               | Default
+-----------------------|--------
+EDUMATE_API_HTTP_PORT  | `8000`
+EDUMATE_HOST           |
+EDUMATE_PORT           |
+EDUMATE_PATH           |
+EDUMATE_USERNAME       |
+EDUMATE_PASSWORD       |
+RETHINKDB_HOST         |
+RETHINKDB_PORT         |
+EDUMATE_API_JWT_SECRET |
 
 ---
 
