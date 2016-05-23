@@ -11,7 +11,7 @@ var timetable = {};
 timetable.replaceJob = (name, sql, timing) => {
   schedule.scheduleJob(timing, () => {
     var now = moment().format('YYYY-MM-DD HH:mm');
-    console.log('Updating table: ' + name + ' at: ' + now);
+    console.log(`[${now}] Updating table: ${name}`);
 
     edumate.query(config.edumate, sql, {clean: true})
       .then((results) => {

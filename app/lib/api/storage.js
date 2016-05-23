@@ -1,5 +1,6 @@
 'use strict';
 
+const moment = require('moment');
 const r = require('../db');
 var storage = {};
 
@@ -22,6 +23,7 @@ storage.insertTable = (table, results) => {
 };
 
 storage.replaceTable = (table, results) => {
+  var now = moment().format('YYYY-MM-DD HH:mm');
   r.db('edumate_api')
     .table(table)
     .delete()
@@ -30,17 +32,9 @@ storage.replaceTable = (table, results) => {
         .table(table)
         .insert(results)
         .then((result) => {
-          console.log(results.length + ' records inserted into table: ' + table);
+          console.log(`[${now}] ${results.length} records inserted into table: ${table}`);
         });
     });
-    // .then((result) => {
-    //   r.db('edumate_api')
-    //     .table(table)
-    //     .insert(results)
-    //     .then((result) => {
-    //       console.log(result);
-    //     });
-    // });
 };
 
 module.exports = storage;
