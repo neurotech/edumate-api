@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo '----------------'
-echo 'Running setup.js'
+echo 'Running DB setup'
 echo '----------------'
 node setup.js
 
