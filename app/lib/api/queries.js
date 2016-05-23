@@ -8,6 +8,7 @@ const businessHours = [new schedule.Range(7, 18)];
 const fiveMinutes = [new schedule.Range(0, 59, 5)];
 const tenMinutes = [new schedule.Range(0, 59, 10)];
 const fifteenMinutes = [new schedule.Range(0, 59, 15)];
+const twentyMinutes = [new schedule.Range(0, 59, 20)];
 
 queries.staff = {
   dataset: 'staff',
