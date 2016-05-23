@@ -23,4 +23,14 @@ config.db = {
   name: 'edumate_api'
 };
 
+/* Authentication Credentials */
+config.auth = {
+  secret: process.env.EDUMATE_API_JWT_SECRET,
+  admin: {
+    id: 1337,
+    username: 'skeleton_key',
+    admin: true
+  }
+}
+
 module.exports = config;
