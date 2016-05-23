@@ -6,6 +6,15 @@ const config = require('../../config');
 var routes = [
   {
     method: 'GET',
+    path: '/',
+    config: { auth: false },
+    handler: (request, reply) => {
+      var nope = { response: 'nope' };
+      reply(nope);
+    }
+  },
+  {
+    method: 'GET',
     path: '/api/staff',
     handler: (request, reply) => {
       r.db(config.db.name)
@@ -21,10 +30,17 @@ var routes = [
     handler: (request, reply) => {
       r.db(config.db.name)
         .table('staff')
-        .filter({staffId: encodeURIComponent(request.params.id)})
+        .filter({staffId: Number(encodeURIComponent(request.params.id))})
         .then((result) => {
           reply(result);
         });
+    },
+    config: {
+      validate: {
+        params: {
+          id: Joi.number().integer()
+        }
+      }
     }
   },
   {
@@ -146,6 +162,9 @@ var routes = [
     },
     config: {
       validate: {
+        params: {
+          module: Joi.string()
+        },
         query: {
           limit: Joi.number().integer().min(1).max(100).default(100),
           offset: Joi.number().integer().min(1).max(100).default(0)
