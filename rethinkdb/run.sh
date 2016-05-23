@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RETHINKDB_VERSION="2.2.5"
+RETHINKDB_VERSION="2.3.2"
 
 echo "Starting rethinkdb:$RETHINKDB_VERSION as edumate-api-db"
 docker run \
