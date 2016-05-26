@@ -1,18 +1,11 @@
+'use strict';
+
 const Joi = require('joi');
 const moment = require('moment');
-const r = require('../db');
-const config = require('../../config');
+const r = require('../../db');
+const config = require('../../../config');
 
-var routes = [
-  {
-    method: 'GET',
-    path: '/',
-    config: { auth: false },
-    handler: (request, reply) => {
-      var nope = { response: 'nope' };
-      reply(nope);
-    }
-  },
+var staff = [
   {
     method: 'GET',
     path: '/api/staff',
@@ -133,73 +126,7 @@ var routes = [
           reply(result);
         });
     }
-  },
-  {
-    method: 'GET',
-    path: '/api/reports/all',
-    handler: (request, reply) => {
-      r.db(config.db.name)
-        .table('module_reports')
-        .then((result) => {
-          reply(result);
-        });
-    }
-  },
-  {
-    method: 'GET',
-    path: '/api/reports/module/{module}',
-    handler: (request, reply) => {
-      var module = request.params.module ? { module: encodeURIComponent(request.params.module) } : '';
-      r.db(config.db.name)
-        .table('module_reports')
-        .orderBy('module', 'kind', 'heading', 'reportName')
-        .filter(module)
-        .skip(request.query.offset)
-        .limit(request.query.limit)
-        .then((result) => {
-          reply(result);
-        });
-    },
-    config: {
-      validate: {
-        params: {
-          module: Joi.string()
-        },
-        query: {
-          limit: Joi.number().integer().min(1).max(100).default(100),
-          offset: Joi.number().integer().min(1).max(100).default(0)
-        }
-      }
-    }
-  },
-  {
-    method: 'GET',
-    path: '/api/periods',
-    handler: (request, reply) => {
-      r.db(config.db.name)
-        .table('periods')
-        .orderBy('startTime')
-        .then((result) => {
-          reply(result);
-        });
-    }
-  },
-  {
-    method: 'GET',
-    path: '/api/periods/current',
-    handler: (request, reply) => {
-      var now = moment().format('HH:mm:ss');
-      r.db(config.db.name)
-        .table('periods')
-        .filter(
-          r.row('startTime').lt(now)
-          .and(r.row('endTime').gt(now))
-        )
-        .then((result) => {
-          reply(result);
-        });
-    }
   }
 ];
 
-module.exports = routes;
+module.exports = staff;

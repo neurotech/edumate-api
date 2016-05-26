@@ -3,8 +3,8 @@
 const moment = require('moment');
 const config = require('./config');
 const server = require('./lib/hapi');
-const queries = require('./lib/api/queries');
-const timetable = require('./lib/api/timetable');
+const queries = require('./lib/db/queries');
+const timetable = require('./lib/timetable');
 
 server.start(function () {
   var today = moment().format('DD/MM/YY');

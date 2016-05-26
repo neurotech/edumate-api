@@ -39,7 +39,7 @@ queries.moduleReports = {
   schedule: {
     dayOfWeek: businessDays,
     hour: businessHours,
-    minute: tenMinutes
+    minute: 0
   }
 };
 

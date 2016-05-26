@@ -5,7 +5,7 @@ const series = require('async/series');
 const queue = require('async/queue');
 const edumate = require('node-edumate');
 
-const queries = require('./lib/api/queries');
+const queries = require('./lib/db/queries');
 const config = require('./config');
 
 const dbName = 'edumate_api';
@@ -40,7 +40,7 @@ series([
     // Check if DB exists, if not then create DB
     r.dbList().then((result) => {
       if (result.indexOf(dbName) > -1) {
-        console.error('DB exists! Exiting.');
+        console.error(`'${dbName}' database already exists. Exiting.`);
         process.exit();
       } else {
         r.dbCreate(dbName).then((result) => {

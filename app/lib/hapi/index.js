@@ -1,9 +1,9 @@
 'use strict';
 
 const hapi = require('hapi');
-const config = require('../config');
-const apiRoutes = require('./api/routes');
-const auth = require('./auth');
+const config = require('../../config');
+const routes = require('../routes');
+const auth = require('../auth');
 
 var server = new hapi.Server();
 
@@ -22,7 +22,7 @@ server.register(require('hapi-auth-jwt2'), (err) => {
   });
 
   server.auth.default('jwt');
-  server.route(apiRoutes);
+  server.route(routes);
 });
 
 module.exports = server;

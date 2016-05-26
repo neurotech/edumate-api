@@ -3,7 +3,7 @@
 const schedule = require('node-schedule');
 const edumate = require('node-edumate');
 const moment = require('moment');
-const storage = require('./storage');
+const storage = require('../storage');
 
 const config = require('../../config');
 var timetable = {};
