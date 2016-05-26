@@ -23,7 +23,7 @@ storage.insertTable = (table, results) => {
 };
 
 storage.replaceTable = (table, results) => {
-  var now = moment().format('YYYY-MM-DD HH:mm');
+  var now = moment().format('YYYY-MM-DD HH:mm:ss');
   r.db('edumate_api')
     .table(table)
     .delete()
