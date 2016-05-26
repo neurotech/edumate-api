@@ -8,5 +8,6 @@ docker run \
   --log-opt max-size=50m \
   --log-opt max-file=4 \
   --restart=on-failure:5 \
-  --memory "768M" \
+  --memory "512MB" \
+  --memory-swap "0" \
   -d edumate-api-db
