@@ -9,7 +9,8 @@ CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_STAFF_USERS_ABSENT (
   time_from,
   date_to,
   time_to,
-  all_day_flag
+  all_day_flag,
+  freshness
 ) AS
 
 WITH current_aways AS (
@@ -25,13 +26,13 @@ WITH current_aways AS (
     DATE(to_date) AS "DATE_TO",
     TIME(to_date) AS "TIME_TO",
     (CASE WHEN TIME(from_date) = '01:00:00' AND TIME(to_date) = '23:59:00' THEN 1 ELSE 0 END) AS "ALL_DAY_FLAG"
-  
+
   FROM staff_away
-  
+
   INNER JOIN staff ON staff.staff_id = staff_away.staff_id
   INNER JOIN contact ON contact.contact_id = staff.contact_id
   INNER JOIN away_reason ON away_reason.away_reason_id = staff_away.away_reason_id
-  
+
   WHERE (current date) BETWEEN DATE(from_date) AND DATE(to_date)
 )
 
@@ -44,6 +45,7 @@ SELECT
   time_from,
   date_to,
   time_to,
-  all_day_flag
+  all_day_flag,
+  (current timestamp) AS "FRESHNESS"
 
 FROM current_aways

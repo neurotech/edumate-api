@@ -1,13 +1,14 @@
 CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_PERIODS (
-  ID,
-  CURRENT,
-  WEEK,
-  PERIOD,
-  SHORT_NAME,
-  PERIOD_TYPE,
-  START_TIME,
-  END_TIME,
-  AM_PM
+  id,
+  current,
+  week,
+  period,
+  short_name,
+  period_type,
+  start_time,
+  end_time,
+  am_pm,
+  freshness
 ) AS
 
 WITH periods AS (
@@ -22,14 +23,14 @@ WITH periods AS (
     (period.start_time - 1 MINUTE) AS "START_TIME",
     period.end_time,
     am_pm.am_pm
-  
+
   FROM TABLE(EDUMATE.get_timetable_cycle_day_date((current date), (current date))) gt
-  
+
   INNER JOIN period_cycle_day pcd ON pcd.cycle_day_id = gt.cycle_day_id
   INNER JOIN period ON period.period_id = pcd.period_id
   INNER JOIN period_type ON period_type.period_type_id = period.period_type_id
   INNER JOIN am_pm ON am_pm.am_pm_id = period.am_pm_id
-  
+
   WHERE timetable_id = (
     SELECT timetable_id FROM timetable tt
     WHERE tt.default_flag = 1 AND tt.academic_year_id = (
@@ -42,7 +43,7 @@ gates AS (
   SELECT
     MIN(start_time) AS "START_OF_DAY",
     MAX(end_time) AS "END_OF_DAY"
-  
+
   FROM periods
 ),
 
@@ -54,7 +55,7 @@ dawn AS (
     TIME('00:01:00') AS "START_TIME",
     ((SELECT start_of_day FROM gates) - 1 MINUTE) AS "END_TIME",
     'Dawn' AS "AM_PM"
-  
+
   FROM SYSIBM.SYSDUMMY1
 ),
 
@@ -94,7 +95,7 @@ combined AS (
   UNION ALL
   SELECT * FROM periods
   UNION ALL
-  SELECT * FROM dusk 
+  SELECT * FROM dusk
 )
 
 SELECT * FROM (
@@ -107,7 +108,8 @@ SELECT * FROM (
     period_type,
     start_time,
     end_time,
-    am_pm
+    am_pm,
+    (current timestamp) AS "FRESHNESS"
 
   FROM combined
 

@@ -1,8 +1,9 @@
 CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_AUDITS_CONTACTS_STAFF_EMAIL (
-  CONTACT_ID,
-  STAFF_NAME,
-  USERNAME,
-  EMAIL_ADDRESS
+  contact_id,
+  staff_name,
+  username,
+  email_address,
+  freshness
 ) AS
 
 WITH current_staff AS (
@@ -20,8 +21,9 @@ SELECT * FROM (
     contact.contact_id,
     COALESCE(contact.preferred_name, contact.firstname) || ' ' || contact.surname AS "STAFF_NAME",
     sys_user.username,
-    contact.email_address
-    
+    contact.email_address,
+    (current timestamp) AS "FRESHNESS"
+
   FROM contact
 
   INNER JOIN staff ON staff.contact_id = contact.contact_id

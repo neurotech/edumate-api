@@ -1,7 +1,8 @@
 CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_AUDITS_PASTORAL_MISSING_HOUSES (
-  CONTACT_ID,
-  CONTACT_TYPE,
-  CONTACT_NAME
+  contact_id,
+  contact_type,
+  contact_name,
+  freshness
 ) AS
 
 WITH current_students AS (
@@ -33,7 +34,8 @@ SELECT * FROM (
   SELECT
     combined.contact_id,
     combined.contact_type,
-    COALESCE(contact.preferred_name, contact.firstname) || ' ' || contact.surname AS "CONTACT_NAME"
+    COALESCE(contact.preferred_name, contact.firstname) || ' ' || contact.surname AS "CONTACT_NAME",
+    (current timestamp) AS "FRESHNESS"
 
   FROM combined
   INNER JOIN contact ON contact.contact_id = combined.contact_id

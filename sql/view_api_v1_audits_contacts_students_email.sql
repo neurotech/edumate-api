@@ -1,10 +1,11 @@
 CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_AUDITS_CONTACTS_STUDENTS_EMAIL (
-  CONTACT_ID,
-  STUDENT_NAME,
-  USERNAME,
-  EMAIL_ADDRESS,
-  FORM_RUN,
-  FORM
+  contact_id,
+  student_name,
+  username,
+  email_address,
+  form_run,
+  form,
+  freshness
 ) AS
 
 WITH current_students AS (
@@ -19,8 +20,9 @@ SELECT * FROM (
     sys_user.username,
     contact.email_address,
     vsfr.form_run,
-    REPLACE(vsfr.form, 'Year ', '') AS "FORM"
-    
+    REPLACE(vsfr.form, 'Year ', '') AS "FORM",
+    (current timestamp) AS "FRESHNESS"
+
   FROM contact
 
   INNER JOIN student ON student.contact_id = contact.contact_id

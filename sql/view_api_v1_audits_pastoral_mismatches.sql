@@ -1,9 +1,10 @@
 CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_AUDITS_PASTORAL_MISMATCHES (
-  STUDENT_ID,
-  STUDENT_NAME,
-  YEAR_GROUP,
-  ACTUAL,
-  EXPECTED
+  student_id,
+  student_name,
+  year_group,
+  actual,
+  expected,
+  freshness
 ) AS
 
 WITH student_homerooms AS (
@@ -25,9 +26,9 @@ hr_house AS (
     student_homerooms.class AS "HR_FULL_NAME",
     LEFT(student_homerooms.class, (LENGTH(student_homerooms.class) - 14)) AS "HR",
     house.house
-  
+
   FROM student
-  
+
   INNER JOIN house ON house.house_id = student.house_id
   INNER JOIN student_homerooms ON student_homerooms.student_id = student.student_id
 ),
@@ -42,13 +43,14 @@ SELECT * FROM (
     COALESCE(contact.preferred_name, contact.firstname) || ' ' || contact.surname AS "STUDENT_NAME",
     vsfr.form_run AS "YEAR_GROUP",
     REPLACE(mismatched.house, '&#039;', '''') AS "ACTUAL",
-    REPLACE(mismatched.hr, '&#039;', '''') AS "EXPECTED"
+    REPLACE(mismatched.hr, '&#039;', '''') AS "EXPECTED",
+    (current timestamp) AS "FRESHNESS"
 
   FROM mismatched
-  
+
   INNER JOIN view_student_form_run vsfr ON vsfr.student_id = mismatched.student_id AND academic_year = YEAR(current date)
   INNER JOIN student ON student.student_id = mismatched.student_id
   INNER JOIN contact ON contact.contact_id = student.contact_id
-    
+
   ORDER BY vsfr.form_run, contact.surname, contact.preferred_name, contact.firstname, mismatched.hr_full_name, mismatched.house
 )
