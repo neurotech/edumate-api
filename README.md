@@ -26,13 +26,16 @@ EDUMATE_API_JWT_SECRET |
 
 A collection of unique users of various types.
 
-URI                   | Description
-----------------------|----------------------------------------------------
-/api/staff            | Returns all current staff.
-/api/staff/:id        | Returns the specified staff member.
-/api/staff/teachers   | Returns all current teaching staff.
-/api/staff/support    | Returns all current support staff.
-/api/staff/absent     | Returns all staff who are away for the current date
+URI                      | Description
+-------------------------|----------------------------------------------------
+/api/staff               | Returns all current staff
+/api/staff/:id           | Returns the specified staff member
+/api/staff/teachers      | Returns all current teaching staff
+/api/staff/support       | Returns all current support staff
+/api/staff/absent/now    | Returns all staff who are absent right now
+/api/staff/absent/soon   | Returns all staff who are absent any time from now
+/api/staff/absent/allday | Returns all staff who are absent all day
+/api/staff/absent/today  | Returns all staff who are absent today
 
 ### Reports
 
@@ -51,3 +54,21 @@ URI                    | Description
 -----------------------|-------------------------------------
 /api/periods           | Returns all periods for current date
 /api/periods/current   | Returns currently active period
+
+---
+
+## TODO
+
+### Add more resources:
+
+### Staff/Misc
+
+ - Summary for Chart.js - Staff Absent
+ - Staff covers (now/soon/today)
+ - Events for today (now/soon/today)
+ - `/picnic/config` for securely serving Picnic config JSON?
+ - Report periods (due date, complete/incomplete stats)
+
+### Students
+
+ - TBD
