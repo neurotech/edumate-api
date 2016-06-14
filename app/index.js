@@ -14,6 +14,7 @@ server.start(function () {
   // Log a basic startup message
   console.log(`
     Starting edumate-api on ${today} at ${now}
+    hapi server: http://${server.info.address}:${server.info.port}
     Edumate Connection String: ${edumateString}
   `);
 
