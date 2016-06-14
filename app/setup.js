@@ -24,23 +24,12 @@ var _manifest = () => {
   return schema;
 };
 
-/*
-   Order of operations
-   -------------------
-   0. `async` has been modularised: https://github.com/caolan/async/blob/master/CHANGELOG.md#v200
-   1. r.dbCreate(dbName).run();
-   2. Put this: r.db(dbName).tableCreate(queries[key].dataset) into _manifest and rename accordingly
-   3. Iterate over queries, take each `sql` key's value, query via node-edumate,
-      insert results into table with name: `dataset`
-   4. Refer to https://github.com/neurotech/edumate-api/blob/master/setup.js
-*/
-
 series([
   (callback) => {
     // Check if DB exists, if not then create DB
     r.dbList().then((result) => {
       if (result.indexOf(dbName) > -1) {
-        console.error(`'${dbName}' database already exists. Exiting.`);
+        console.error(`'${dbName}' database already exists. Skipping setup.`);
         process.exit();
       } else {
         r.dbCreate(dbName).then((result) => {
@@ -100,12 +89,12 @@ series([
     console.log('Setting up auth db.');
     r.db(dbName).tableCreate('auth', {primaryKey: 'id'})
       .then((result) => {
-        console.log(`Created auth table.`);
+        console.log('Created auth table.');
         r.db(dbName)
           .table('auth')
           .insert(config.auth.admin)
           .then((result) => {
-            console.log(`Setup default admin user in auth table.`);
+            console.log('Created default admin user in auth table.');
             callback();
           });
       });
