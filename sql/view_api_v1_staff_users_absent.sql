@@ -10,6 +10,12 @@ CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_STAFF_USERS_ABSENT (
   date_to,
   time_to,
   all_day_flag,
+  firstname,
+  surname,
+  salutation,
+  house,
+  support,
+  teacher,
   freshness
 ) AS
 
@@ -37,15 +43,23 @@ WITH current_aways AS (
 )
 
 SELECT
-  INTEGER((ROW_NUMBER() OVER (ORDER BY date_from DESC, all_day_flag, time_from ASC, away_reason, UPPER(surname), preferred_name, firstname) + 99)) AS SORT_KEY,
+  INTEGER((ROW_NUMBER() OVER (ORDER BY date_from DESC, all_day_flag, time_from ASC, away_reason, UPPER(current_aways.surname), current_aways.preferred_name, current_aways.firstname) + 99)) AS SORT_KEY,
   id,
-  INTEGER(staff_id) AS STAFF_ID,
+  INTEGER(current_aways.staff_id) AS STAFF_ID,
   away_reason,
   date_from,
   time_from,
   date_to,
   time_to,
   all_day_flag,
+  api_staff.firstname,
+  api_staff.surname,
+  api_staff.salutation,
+  api_staff.house,
+  api_staff.support,
+  api_staff.teacher,
   (current timestamp) AS "FRESHNESS"
 
 FROM current_aways
+
+INNER JOIN DB2INST1.view_api_v1_staff_users api_staff ON api_staff.staff_id = current_aways.staff_id

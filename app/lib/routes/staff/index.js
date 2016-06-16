@@ -69,8 +69,6 @@ var staff = [
       var now = moment().format('HH:mm:ss');
       r.db(config.db.name)
         .table('staff_absent')
-        .eqJoin('staffId', r.db(config.db.name).table('staff'))
-        .zip()
         .filter(
           r.row('allDayFlag').eq(0)
           .and(r.row('timeFrom').lt(now))
@@ -88,8 +86,6 @@ var staff = [
       var now = moment().format('HH:mm:ss');
       r.db(config.db.name)
         .table('staff_absent')
-        .eqJoin('staffId', r.db(config.db.name).table('staff'))
-        .zip()
         .filter(
           r.row('allDayFlag').eq(0)
           .and(r.row('timeFrom').gt(now))
@@ -105,8 +101,6 @@ var staff = [
     handler: (request, reply) => {
       r.db(config.db.name)
         .table('staff_absent')
-        .eqJoin('staffId', r.db(config.db.name).table('staff'))
-        .zip()
         .filter(r.row('allDayFlag').eq(1))
         .then((result) => {
           reply(result);
@@ -119,8 +113,6 @@ var staff = [
     handler: (request, reply) => {
       r.db(config.db.name)
         .table('staff_absent')
-        .eqJoin('staffId', r.db(config.db.name).table('staff'))
-        .zip()
         .orderBy('sortKey')
         .then((result) => {
           reply(result);
