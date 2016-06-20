@@ -50,7 +50,7 @@ queries.periods = {
   schedule: {
     dayOfWeek: businessDays,
     hour: businessHours,
-    minute: 50
+    minute: twentyMinutes
   }
 };
 
