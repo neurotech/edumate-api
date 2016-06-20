@@ -9,6 +9,7 @@ const timetable = require('./lib/timetable');
 server.start(function () {
   var today = moment().format('DD/MM/YY');
   var now = moment().format('HH:mm:ss');
+  var logNow = moment().format('YYYY-MM-DD HH:mm:ss');
   var edumateString = `${config.edumate.username}@${config.edumate.host}:${config.edumate.port}/${config.edumate.suffix}`;
 
   // Log a basic startup message
@@ -22,7 +23,7 @@ server.start(function () {
   for (var key in queries) {
     if (queries.hasOwnProperty(key)) {
       timetable.replaceJob(queries[key].dataset, queries[key].sql, queries[key].schedule);
-      console.log(`Scheduled job: ${queries[key].dataset}`);
+      console.log(`[${logNow}] Scheduled job: ${queries[key].dataset}`);
     }
   }
 });
