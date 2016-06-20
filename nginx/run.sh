@@ -2,7 +2,7 @@
 
 echo "Starting daemonized container: edumate-api-nginx"
 docker run -d \
-  -p 80:80 \
+  -p 8877:8877 \
   --net=edumate-api \
   --log-driver=json-file \
   --log-opt max-size=50m \
