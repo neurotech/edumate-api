@@ -59,6 +59,8 @@ URI                    | Description
 
 ## TODO
 
+ - Add checks for `EDUMATE_API_JWT_SECRET` to bootstrap.sh
+
 ### Add more resources:
 
 ### Staff/Misc
