@@ -15,6 +15,7 @@ WITH periods AS (
   SELECT
     (CASE
       WHEN period.period = 'CoCurricular' THEN 'Co-Curricular'
+      WHEN period.period = 'Bus' THEN 'Bus Lines'
       WHEN period.period = 'Period 7' THEN 'After School'
       ELSE period.period
     END) AS "PERIOD",
