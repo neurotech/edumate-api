@@ -1,5 +1,5 @@
 # Modified version of:
-# https://github.com/rethinkdb/rethinkdb-dockerfiles/blob/master/jessie/2.3.2/Dockerfile
+# https://github.com/rethinkdb/rethinkdb-dockerfiles/blob/master/jessie/2.3.4/Dockerfile
 FROM debian:jessie
 
 RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 1614552E5765227AEC39EFCFA7E00EF33A8F2399
