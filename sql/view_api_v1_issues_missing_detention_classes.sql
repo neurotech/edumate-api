@@ -33,7 +33,7 @@ current_term AS (
   
   FROM term_dates
   
-  WHERE (current date + 2 months) = term_date
+  WHERE (current date) = term_date
 ),
 
 timetabled_detentions AS (
