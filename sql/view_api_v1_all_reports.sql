@@ -12,9 +12,9 @@ SELECT * FROM (
   SELECT
     module_report_new.module_report_new_id AS "ID",
     module.module AS "MODULE",
-    module_report_kind.module_report_kind AS "KIND",
-    (CASE WHEN module_reports_heading IS null THEN '-' ELSE module_reports_heading END) AS "HEADING",
-    module_report_new AS "REPORT_NAME",
+    (CASE WHEN module_report_kind.module_report_kind = 'Module Report' THEN 'Module' ELSE module_report_kind.module_report_kind END) AS "KIND",
+    module_reports_heading AS "HEADING",
+    REPLACE(module_report_new, '&#039;', '''') AS "REPORT_NAME",
     module_report_new.description AS "DESCRIPTION",
     (current timestamp) AS "FRESHNESS"
 
