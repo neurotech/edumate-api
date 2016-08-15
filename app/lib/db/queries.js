@@ -28,7 +28,7 @@ queries.staffAbsent = {
   schedule: {
     dayOfWeek: businessDays,
     hour: businessHours,
-    minute: fiveMinutes
+    minute: tenMinutes
   }
 };
 
@@ -51,6 +51,28 @@ queries.periods = {
     dayOfWeek: businessDays,
     hour: businessHours,
     minute: twentyMinutes
+  }
+};
+
+queries.totalIssues = {
+  dataset: 'total_issues',
+  primaryKey: 'id',
+  sql: 'SELECT * FROM DB2INST1.view_api_v1_issues_total',
+  schedule: {
+    dayOfWeek: businessDays,
+    hour: businessHours,
+    minute: fiveMinutes
+  }
+};
+
+queries.missingDetentionClasses = {
+  dataset: 'missing_detention_classes',
+  primaryKey: 'id',
+  sql: 'SELECT * FROM DB2INST1.view_api_v1_issues_missing_detention_classes',
+  schedule: {
+    dayOfWeek: businessDays,
+    hour: businessHours,
+    minute: fiveMinutes
   }
 };
 
