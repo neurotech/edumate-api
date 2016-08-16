@@ -21,6 +21,8 @@ var issues = [
     handler: (request, reply) => {
       r.db(config.db.name)
         .table('issues')
+        .pluck('category')
+        .distinct()
         .count()
         .then((result) => {
           reply(result);
