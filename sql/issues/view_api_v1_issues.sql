@@ -1,4 +1,5 @@
 CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_ISSUES (
+  id,
   category,
   sort,
   issue,
@@ -88,6 +89,7 @@ all_issues AS (
 
 SELECT * FROM (
   SELECT
+    INTEGER(ROW_NUMBER() OVER ()) AS "ID",
     category,
     sort,
     issue,
