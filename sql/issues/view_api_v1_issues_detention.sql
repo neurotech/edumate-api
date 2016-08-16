@@ -1,9 +1,11 @@
-CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_ISSUES_MISSING_DETENTION_CLASSES (
-  id,
-  term,
-  detention_day,
-  detention_date,
-  freshness
+CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_ISSUES_DETENTION (
+  category,
+  sort,
+  issue,
+  details,
+  actual,
+  expected,
+  fix
 ) AS
 
 WITH term_dates AS (
@@ -124,11 +126,20 @@ combined AS (
 
 SELECT * FROM (
   SELECT
-    INTEGER(ROW_NUMBER() OVER ()) AS "ID",
-    term,
-    detention_day,
-    detention_date,
-    (current timestamp) AS "FRESHNESS"
+    'Detention' AS "CATEGORY",
+    INTEGER(ROW_NUMBER() OVER (ORDER BY term, combined.term_date ASC)) AS "SORT",
+    'Untimetabled Class' AS "ISSUE",
+    '(' || term || ') ' || detention_day || ' ' || detention_date AS "DETAILS",
+    '-' AS "ACTUAL",
+    (CASE
+      WHEN detention_day = 'Monday' THEN 'Monday Detention'
+      WHEN detention_day = 'Wednesday' THEN 'Wednesday Academic Support'
+      WHEN detention_day = 'Friday' THEN 'Friday Detention'
+    END) AS "EXPECTED",
+    --term,
+    --detention_day,
+    --detention_date,
+    'Manually timetable in Edumate' AS "FIX"
   
   FROM combined
   

@@ -54,21 +54,10 @@ queries.periods = {
   }
 };
 
-queries.totalIssues = {
-  dataset: 'total_issues',
+queries.issues = {
+  dataset: 'issues',
   primaryKey: 'id',
-  sql: 'SELECT * FROM DB2INST1.view_api_v1_issues_total',
-  schedule: {
-    dayOfWeek: businessDays,
-    hour: businessHours,
-    minute: fiveMinutes
-  }
-};
-
-queries.missingDetentionClasses = {
-  dataset: 'missing_detention_classes',
-  primaryKey: 'id',
-  sql: 'SELECT * FROM DB2INST1.view_api_v1_issues_missing_detention_classes',
+  sql: 'SELECT * FROM DB2INST1.view_api_v1_issues',
   schedule: {
     dayOfWeek: businessDays,
     hour: businessHours,

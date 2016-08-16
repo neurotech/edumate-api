@@ -1,11 +1,11 @@
-CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_AUDITS_CLASS_TYPE (
-  class,
+CREATE OR REPLACE VIEW DB2INST1.VIEW_API_V1_ISSUES_CLASS_TYPE (
+  category,
+  sort,
+  issue,
+  details,
   actual,
   expected,
-  class_id,
-  expected_id,
-  fix,
-  freshness
+  fix
 ) AS
 
 WITH home_rooms AS (
@@ -120,13 +120,13 @@ combined AS (
 
 SELECT * FROM (
   SELECT
-    class,
+    'Class Type' AS "CATEGORY",
+    ROW_NUMBER() OVER () AS "SORT",
+    'Incorrect Class Type' AS "ISSUE",
+    class AS "DETAILS",
     actual,
     expected,
-    class_id,
-    expected_id,
-    ('UPDATE class SET class_type_id = ' || expected_id || ' WHERE class_id = ' || class_id || ';') AS "FIX",
-    (current timestamp) AS "FRESHNESS"
+    ('UPDATE class SET class_type_id = ' || expected_id || ' WHERE class_id = ' || class_id || ';') AS "FIX"
 
   FROM combined
 

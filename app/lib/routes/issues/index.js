@@ -3,14 +3,13 @@
 const r = require('../../db');
 const config = require('../../../config');
 
-var reports = [
+var issues = [
   {
     method: 'GET',
-    path: '/api/issues/total',
+    path: '/api/issues',
     handler: (request, reply) => {
       r.db(config.db.name)
-        .table('total_issues')
-        .pluck('totalIssues')
+        .table('issues')
         .then((result) => {
           reply(result);
         });
@@ -18,10 +17,11 @@ var reports = [
   },
   {
     method: 'GET',
-    path: '/api/issues/missing-detention-classes',
+    path: '/api/issues/total',
     handler: (request, reply) => {
       r.db(config.db.name)
-        .table('missing_detention_classes')
+        .table('issues')
+        .count()
         .then((result) => {
           reply(result);
         });
@@ -29,4 +29,4 @@ var reports = [
   }
 ];
 
-module.exports = reports;
+module.exports = issues;
